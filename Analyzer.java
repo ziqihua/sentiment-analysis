@@ -11,8 +11,7 @@ public class Analyzer {
 	 * only lowercase letters.
 	 * 
 	 * @param sentences Set containing Sentence objects with words to score
-	 * @return Map of each word to its weighted average
-	 * @throws IllegalArgumentException if sentences is null
+	 * @return Map of each word to its weighted average; or an empty Map if any error occurs
 	 */
 	public static Map<String, Double> calculateWordScores(Set<Sentence> sentences) {
 		/*
@@ -29,8 +28,7 @@ public class Analyzer {
 	 * 
 	 * @param wordScores Map of words to their weighted averages
 	 * @param sentence Text for which the method calculates the sentiment
-	 * @return Weighted average scores of all words in input sentence
-	 * @throws IllegalArgumentException if wordScores is null or sentence is null
+	 * @return Weighted average scores of all words in input sentence; or 0 if any error occurs
 	 */
 	public static double calculateSentenceScore(Map<String, Double> wordScores, String sentence) {
 		/*
