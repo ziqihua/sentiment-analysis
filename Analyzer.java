@@ -11,7 +11,8 @@ public class Analyzer {
 	 * only lowercase letters.
 	 * 
 	 * @param sentences Set containing Sentence objects with words to score
-	 * @return Map of each word to its weighted average; or an empty Map if any error occurs
+	 * @return Map of each word to its weighted average; or an empty Map if the Set of
+	 * Sentences is empty or null.
 	 */
 	public static Map<String, Double> calculateWordScores(Set<Sentence> sentences) {
 		/*
