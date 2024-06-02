@@ -34,6 +34,9 @@ public class Reader {
 						continue; // Ignore lines with scores outside [-2, 2]
 					}
 					String text = parts[1];
+					if (text.isEmpty()) {
+						continue; // Ignore lines where text is empty
+					}
 					sentences.add(new Sentence(score, text));
 				} catch (NumberFormatException e) {
 					// Ignore lines where the score is not a valid integer

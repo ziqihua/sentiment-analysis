@@ -78,6 +78,4 @@ public class Analyzer {
 
 		return wordCount > 0 ? totalScore / wordCount : 0.0;
 	}
-
-
 }
