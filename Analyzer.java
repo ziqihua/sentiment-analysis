@@ -1,6 +1,8 @@
-
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class Analyzer {
 	
@@ -15,10 +17,35 @@ public class Analyzer {
 	 * Sentences is empty or null.
 	 */
 	public static Map<String, Double> calculateWordScores(Set<Sentence> sentences) {
-		/*
-		 * Implement this method in Part 2
-		 */
-		return null;
+		if (sentences == null || sentences.isEmpty()) {
+			return new HashMap<>();  // Return an empty map
+		}
+
+		Map<String, Integer> wordCounts = new HashMap<>();
+		Map<String, Integer> wordScores = new HashMap<>();
+
+		for (Sentence sentence : sentences) {
+			if (sentence.getText() == null) continue;
+
+			int score = sentence.getScore();
+			StringTokenizer tokenizer = new StringTokenizer(sentence.getText().toLowerCase(), " ");
+
+			while (tokenizer.hasMoreTokens()) {
+				String word = tokenizer.nextToken();
+				if (!Character.isLetter(word.charAt(0))) continue;  // Ignore tokens that do not start with a letter
+
+				wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
+				wordScores.put(word, wordScores.getOrDefault(word, 0) + score);
+			}
+		}
+
+		Map<String, Double> wordAverages = new HashMap<>();
+		for (String word : wordCounts.keySet()) {
+			double average = (double) wordScores.get(word) / wordCounts.get(word);
+			wordAverages.put(word, average);
+		}
+
+		return wordAverages;
 	}
 	
 	/**
@@ -32,10 +59,24 @@ public class Analyzer {
 	 * @return Weighted average scores of all words in input sentence; or 0 if any error occurs
 	 */
 	public static double calculateSentenceScore(Map<String, Double> wordScores, String sentence) {
-		/*
-		 * Implement this method in Part 3
-		 */
-		return 0;
+		if (wordScores == null || sentence == null || sentence.isEmpty()) {
+			return 0.0;
+		}
+
+		StringTokenizer tokenizer = new StringTokenizer(sentence.toLowerCase(), " ");
+		double totalScore = 0.0;
+		int wordCount = 0;
+
+		while (tokenizer.hasMoreTokens()) {
+			String word = tokenizer.nextToken();
+			if (!Character.isLetter(word.charAt(0))) continue;  // Ignore tokens that do not start with a letter
+
+			Double wordScore = wordScores.getOrDefault(word, 0.0);
+			totalScore += wordScore;
+			wordCount++;
+		}
+
+		return wordCount > 0 ? totalScore / wordCount : 0.0;
 	}
 
 
